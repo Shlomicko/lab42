@@ -1,0 +1,15 @@
+<mat-toolbar class="nav-bar" color="primary">
+  <app-company-logo>
+    <span>CYOB</span>
+  </app-company-logo>
+  <div class="nav-bar__buttons">
+    <a mat-button
+       class="nav-bar__link"
+       [routerLink]="['/gallery']"
+       routerLinkActive="active-link">Gallery</a>
+    <a mat-button
+       class="nav-bar__link"
+       [routerLink]="['/favorites']"
+       routerLinkActive="active-link">Favorites</a>
+  </div>
+</mat-toolbar>

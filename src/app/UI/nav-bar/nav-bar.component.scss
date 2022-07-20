@@ -1,0 +1,19 @@
+
+.nav-bar {
+  display: flex;
+
+  &__buttons {
+    margin-left: 2rem;
+  }
+
+  &__link {
+    margin-right: .5rem;
+    &:hover {
+      background-color: rgba(0, 0, 0, .2);
+    }
+  }
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, .2);
+}

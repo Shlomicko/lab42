@@ -1,0 +1,11 @@
+.company {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  &__logo {
+    .img {
+      height: 36px;
+    }
+  }
+}
