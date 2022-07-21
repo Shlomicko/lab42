@@ -20,6 +20,7 @@ export interface Beer {
   food_pairing: string[];
   brewers_tips: string;
   contributed_by: string;
+  isFavorite: boolean;
 }
 
 export interface BoilVolume {
@@ -58,15 +59,4 @@ export interface Fermentation {
 export interface MashTemp {
   temp: BoilVolume;
   duration: number;
-}
-
-export interface BeerInfoMinimal {
-  name: string;
-  tagLine: string;
-  imageUrl: string
-}
-
-export interface BeerInfo extends BeerInfoMinimal{
-  description: string;
-  firstBrewed: string;
 }

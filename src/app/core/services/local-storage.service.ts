@@ -1,9 +1,28 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Beer} from "../models";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
 
-  constructor() { }
+  private static readonly FAVORITES: string = 'favorites';
+
+  constructor() {
+  }
+
+  public saveFavorites(beers: Beer[]): Observable<Beer[]> {
+    localStorage.setItem(LocalStorageService.FAVORITES, JSON.stringify(beers));
+    return this.getFavorites();
+  }
+
+  public getFavorites(): Observable<Beer[]> {
+    const data: string | null = localStorage.getItem(LocalStorageService.FAVORITES);
+    let favorites: Beer[] = [];
+    if (data) {
+      favorites = JSON.parse(data) as Beer[]
+    }
+    return of(favorites);
+  }
 }

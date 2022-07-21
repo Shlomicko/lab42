@@ -1,1 +1,17 @@
-<p>favorites works!</p>
+<ng-container *ngIf="beers$ | async as beers">
+  <div class="beers">
+    <app-beer-card class="beers__card"
+                   *ngFor="let beer of beers;trackBy: trackBeersFn"
+                   [beerInfo]="beer"
+    >
+      <img src="{{beer.image_url}}" alt="{{beer.name}}">
+      <
+      <button class="action-button"
+              (click)="removeFromFavorites(beer)"
+              mat-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button class="action-button" mat-button color="primary">MORE</button>
+    </app-beer-card>
+  </div>
+</ng-container>

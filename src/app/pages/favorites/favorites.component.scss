@@ -1,0 +1,13 @@
+.beers {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 2rem;
+  gap: 6rem 0;
+
+  &__card {
+    width: 40rem;
+    height: 25rem;
+    margin-inline-start: 6rem;
+  }
+}

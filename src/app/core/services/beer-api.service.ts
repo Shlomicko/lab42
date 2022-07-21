@@ -12,11 +12,15 @@ export class BeerApiService {
   constructor(private http: HttpClient) {
   }
 
-  public fetchBeers(): Observable<Beer[]> {
-    return this.http.get<Beer[]>(environment.beersEndpoint);
+  public fetchBeers(page: number, per_page: number): Observable<Beer[]> {
+    return this.http.get<Beer[]>(`${environment.beersEndpoint}?page=${page}&per_page=${per_page}`);
   }
 
-  public fetchFoodPairing(query: string): Observable<Beer[]>{
+  public fetchRandomBeer(): Observable<Beer> {
+    return this.http.get<Beer>(`${environment.beersEndpoint}/random`);
+  }
+
+  public fetchFoodPairing(query: string): Observable<Beer[]> {
     query = query.trim().replace(/\s\s+/g, '_');
     return this.http.get<Beer[]>(`${environment.beersEndpoint}?food=${query}`);
   }

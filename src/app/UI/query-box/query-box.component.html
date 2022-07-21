@@ -1,0 +1,17 @@
+<div class="form">
+  <mat-form-field class="form__full-width" appearance="legacy">
+    <mat-label>Choose a side dish</mat-label>
+    <input [formControl]="queryControl" matInput placeholder="Ex. Salty meat balls">
+    <button *ngIf="queryControl.valid"
+            (click)="queryControl.reset()"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <button class="form__submit-button"
+          (click)="submitQuery()"
+          mat-raised-button color="accent"
+          [disabled]="queryControl.invalid">Beer me!</button>
+</div>

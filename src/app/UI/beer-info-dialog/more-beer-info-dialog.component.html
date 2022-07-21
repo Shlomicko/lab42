@@ -1,0 +1,14 @@
+<div class="header">
+  <h1 mat-dialog-title>{{ data.name }}</h1>
+</div>
+<div mat-dialog-content>
+  <p class="description">{{ data.description }}</p>
+  <span>Complement the beer with:</span>
+  <li *ngFor="let dish of data.food_pairing ">
+    {{dish}}
+  </li>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="confirm()">Cool</button>
+</div>

@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {BeerInfoMinimal} from "../../core/models";
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Beer} from "../../core/models";
 
 @Component({
   selector: 'app-beer-card',
@@ -7,13 +7,8 @@ import {BeerInfoMinimal} from "../../core/models";
   styleUrls: ['./beer-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BeerCardComponent implements OnInit {
+export class BeerCardComponent {
 
-  @Input() beerInfo!: BeerInfoMinimal;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Input() beerInfo!: Beer;
 
 }
