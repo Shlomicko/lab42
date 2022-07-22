@@ -11,7 +11,10 @@
               mat-button>
         <mat-icon>delete</mat-icon>
       </button>
-      <button class="action-button" mat-button color="primary">MORE</button>
+      <button class="action-button"
+              (click)="onMoreDetails(beer)"
+              mat-button
+              color="primary">MORE</button>
     </app-beer-card>
   </div>
 </ng-container>

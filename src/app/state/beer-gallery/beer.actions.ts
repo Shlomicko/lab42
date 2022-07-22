@@ -10,9 +10,11 @@ const FETCH_RANDOM_BEER_DATA_SUCCESS = '[Beers] Fetch data success';
 const FETCH_RANDOM_BEES_DATA_FAILURE = '[Beers] Fetch data failure';
 
 
+
+
 export const fetchBeersData = createAction(
   FETCH_BEERS_DATA,
-  props<{ page: number, perPage: number }>()
+  props<{ food: string, page: number, perPage: number }>()
 );
 
 export const fetchBeersDataSuccess = createAction(

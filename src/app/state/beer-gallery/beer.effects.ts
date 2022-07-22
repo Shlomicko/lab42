@@ -13,8 +13,8 @@ export class BeerEffects {
 
   public fetchBeers$ = createEffect(() => this.actions$.pipe(
     ofType(BeerActions.fetchBeersData),
-    switchMap(({page, perPage}) => {
-      return this.beerService.fetchBeers(page, perPage).pipe(
+    switchMap(({food, page, perPage}) => {
+      return this.beerService.fetchFoodPairing(food, page, perPage).pipe(
         map((beers: Beer[]) => BeerActions.fetchBeersDataSuccess({beers}))
       )
     })

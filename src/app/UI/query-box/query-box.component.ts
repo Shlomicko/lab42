@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 
 @Component({
@@ -9,7 +9,6 @@ import {FormControl, Validators} from "@angular/forms";
 })
 export class QueryBoxComponent {
 
-
   @Output() onSubmitQuery: EventEmitter<string> = new EventEmitter<string>();
 
   protected queryControl: FormControl<string> = new FormControl<string>('',
@@ -18,9 +17,8 @@ export class QueryBoxComponent {
       validators: Validators.required
     });
 
-
+  @HostListener("keydown.enter")
   protected submitQuery(): void {
     this.onSubmitQuery.emit(this.queryControl.value);
   }
-
 }

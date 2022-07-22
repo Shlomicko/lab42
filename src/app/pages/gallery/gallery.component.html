@@ -1,5 +1,8 @@
 <ng-container *ngIf="beers$ | async as beers">
-  <app-query-box></app-query-box>
+  <app-query-box
+    [class.disabled]="beersLoading$ | async"
+    (onSubmitQuery)="onFoodPairingQuery($event)"
+  ></app-query-box>
   <div class="beers">
     <app-beer-card class="beers__card"
                    *ngFor="let beer of beers;trackBy: trackBeersFn"
@@ -20,6 +23,7 @@
       </button>
     </app-beer-card>
     <mat-paginator
+      #paginator
       class="beers__paginator mat-elevation-z4"
       (page)="onPageChange($event)"
       [length]="100"
@@ -27,4 +31,5 @@
       aria-label="Select page">
     </mat-paginator>
   </div>
+  <mat-spinner class="spinner" *ngIf="beersLoading$ | async"></mat-spinner>
 </ng-container>

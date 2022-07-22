@@ -8,6 +8,7 @@ import {trackBeers} from '../../core/helpers';
 import * as FavoritesActions from "../../state/favorites/favorites.actions";
 import {RemoveFavoriteAlertComponent} from "../../UI/remove-favorite-alert/remove-favorite-alert.component";
 import {MessageBoxService} from "../../core/services/message-box.service";
+import {MoreBeerInfoDialogComponent} from "../../UI/beer-info-dialog/more-beer-info-dialog.component";
 
 
 @Component({
@@ -31,5 +32,9 @@ export class FavoritesComponent {
           this.store.dispatch(FavoritesActions.toggleFavorite({beer}));
         }
       });
+  }
+
+  protected onMoreDetails(beer: Beer): void {
+    this.dialogService.open(MoreBeerInfoDialogComponent, beer);
   }
 }
