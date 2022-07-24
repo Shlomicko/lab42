@@ -1,20 +1,33 @@
 <ng-container *ngIf="beers$ | async as beers">
-  <div class="beers">
-    <app-beer-card class="beers__card"
-                   *ngFor="let beer of beers;trackBy: trackBeersFn"
-                   [beerInfo]="beer"
-    >
-      <img src="{{beer.image_url}}" alt="{{beer.name}}">
-      <
-      <button class="action-button"
-              (click)="removeFromFavorites(beer)"
-              mat-button>
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button class="action-button"
-              (click)="onMoreDetails(beer)"
-              mat-button
-              color="primary">MORE</button>
-    </app-beer-card>
+  <div class="favorite-beers">
+    <button *ngIf="beers.length > 1"
+            class="favorite-beers__remove-all"
+            mat-flat-button
+            (click)="clearFavorites()"
+            color="warn">Remove All Favorite Beers
+    </button>
+    <div *ngIf="beers.length === 0" class="no-beer-for-you">
+      <img src="assets/no_beer_for_you.png">
+    </div>
+    <div class="beers">
+      <app-beer-card class="beers__card"
+                     *ngFor="let beer of beers;trackBy: trackBeersFn"
+                     [beerInfo]="beer"
+      >
+        <img src="{{beer.image_url}}" alt="{{beer.name}}">
+        <div class="action-buttons">
+          <button
+            (click)="removeFromFavorites(beer)"
+            mat-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button
+            (click)="onMoreDetails(beer)"
+            mat-button
+            color="primary">MORE
+          </button>
+        </div>
+      </app-beer-card>
+    </div>
   </div>
 </ng-container>

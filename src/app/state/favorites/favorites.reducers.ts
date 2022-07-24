@@ -2,16 +2,18 @@ import {Beer} from '../../core/models';
 import {createReducer, on} from '@ngrx/store';
 import * as Actions from './favorites.actions';
 
-export const beerFavoritesFeatureKey = 'favorites';
+// export const beerFavoritesFeatureKey = 'favorites';
 
 export interface BeerFavoritesState {
   beers: Beer[];
-  loading: boolean
+  loading: boolean,
+  showAlertDialogAgain: boolean
 }
 
 export const initialState: BeerFavoritesState = {
   beers: [],
-  loading: false
+  loading: false,
+  showAlertDialogAgain: true
 };
 
 export const reducer = createReducer(
@@ -29,6 +31,15 @@ export const reducer = createReducer(
   on(Actions.initFavoriteBeers, (state: BeerFavoritesState) => ({
     ...state,
     loading: true
+  })),
+  on(Actions.removeAllFromFavorites, (state:BeerFavoritesState) => ({
+    ...state,
+    beers: [],
+    loading: false
+  })),
+  on(Actions.saveShowAlertAgain, (state: BeerFavoritesState, {show}) => ({
+    ...state,
+    showAlertDialogAgain: show
   }))
 )
 

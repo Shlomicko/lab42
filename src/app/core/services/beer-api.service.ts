@@ -21,7 +21,6 @@ export class BeerApiService {
   }
 
   public fetchFoodPairing(food: string, page: number, per_page: number): Observable<Beer[]> {
-    food = food.trim().replace(/\s\s+/g, '_');
     return this.http.get<Beer[]>(`${environment.beersEndpoint}?food=${food}&page=${page}&per_page=${per_page}`);
   }
 }

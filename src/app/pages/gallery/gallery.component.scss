@@ -1,22 +1,27 @@
-.beers {
+.beers-container {
   display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  padding: 2rem;
-  gap: 6rem 0;
+  flex-direction: column;
 
-  &__card {
-    width: 40rem;
-    height: 25rem;
-    margin-inline-start: 6rem;
-  }
+  .beers {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem 0;
 
-  &__paginator {
-    margin: auto;
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+
+    &__card {
+      width: 35rem;
+      height: 22rem;
+      margin-inline-start: 2rem;
+    }
+
+    &__paginator {
+      margin: auto;
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
 
@@ -25,9 +30,18 @@
   opacity: .5;
 }
 
-.spinner{
+.spinner {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateY(-50%) translateX(-50%);
+}
+
+.no-beer-for-you {
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 50%;
+  }
 }

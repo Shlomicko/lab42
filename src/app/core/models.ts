@@ -60,3 +60,13 @@ export interface MashTemp {
   temp: BoilVolume;
   duration: number;
 }
+
+export interface AlertDialogConfig {
+  message: string;
+  showAgainOption: boolean
+}
+
+export interface AlertDialogCloseData {
+  value: boolean;
+  dontShowAgain: boolean
+}

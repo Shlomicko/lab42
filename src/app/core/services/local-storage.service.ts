@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Beer} from "../models";
-import {Observable, of} from "rxjs";
+import {EMPTY, Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,10 @@ export class LocalStorageService {
       favorites = JSON.parse(data) as Beer[]
     }
     return of(favorites);
+  }
+
+  public removeAll(): Observable<Beer[]>{
+    localStorage.clear();
+    return EMPTY;
   }
 }

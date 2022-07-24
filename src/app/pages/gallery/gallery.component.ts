@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {combineLatest, map, Observable} from 'rxjs';
 import {Beer} from '../../core/models';
 import {selectBeers, selectLoadingBeers} from '../../state/beer-gallery/beer.selectors';
 import * as BeerActions from '../../state/beer-gallery/beer.actions';
 import * as FavoritesActions from '../../state/favorites/favorites.actions';
-import {favoritesSelector} from '../../state/favorites/favorites.selectors';
+import {favoritesBeersSelector} from '../../state/favorites/favorites.selectors';
 import {AppState} from '../../state/app.state';
 import {trackBeers} from '../../core/helpers';
 import {MessageBoxService} from '../../core/services/message-box.service';
@@ -19,13 +19,13 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleryComponent {
+export class GalleryComponent{
 
-  private foodPairingString!: string;
+  protected foodPairingString: string = '';
 
-  protected readonly perPage: number = 6;
+  protected readonly perPage: number = 8;
   private availableBeers$: Observable<Beer[]> = this.store.select(selectBeers);
-  private favoriteBeers$: Observable<Beer[]> = this.store.select(favoritesSelector);
+  private favoriteBeers$: Observable<Beer[]> = this.store.select(favoritesBeersSelector);
   protected beersLoading$: Observable<boolean> = this.store.select(selectLoadingBeers);
 
   @ViewChild('paginator', {static: false}) paginator!: MatPaginator
@@ -33,9 +33,11 @@ export class GalleryComponent {
   protected beers$: Observable<Beer[]> = combineLatest([
     this.availableBeers$,
     this.favoriteBeers$,
-    this.beersLoading$
   ]).pipe(
     map(([beers, favBeers]) => {
+      if(!this.foodPairingString){
+        return [];
+      }
       return beers.map(beer => ({
         ...beer,
         isFavorite: !!favBeers.find((favBeer) => beer.id === favBeer.id)
@@ -46,6 +48,10 @@ export class GalleryComponent {
   protected trackBeersFn = trackBeers;
 
   constructor(private store: Store<AppState>, private dialogService: MessageBoxService) {
+  }
+
+  ngOnInit(): void {
+    //this.fetchBeers();
   }
 
   protected toggleFavorite(beer: Beer): void {
@@ -67,7 +73,6 @@ export class GalleryComponent {
   protected onFoodPairingQuery(query: string): void {
     this.foodPairingString = query;
     this.paginator?.firstPage();
-    console.log(this.paginator);
     this.fetchBeers();
   }
 }

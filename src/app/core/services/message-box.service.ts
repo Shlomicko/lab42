@@ -10,7 +10,7 @@ export class MessageBoxService {
   constructor(private dialog: MatDialog) {
   }
 
-  public open<T, D>(component: ComponentType<T>, config: D): MatDialogRef<T, D> {
+  public open<T, D, R>(component: ComponentType<T>, config: D): MatDialogRef<T, R> {
     return this.dialog.open(component, {data: {...config}});
   }
 

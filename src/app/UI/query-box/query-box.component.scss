@@ -20,4 +20,9 @@
     box-sizing: content-box;
     margin-left: 1rem;
   }
+
+  &__ng-content{
+    margin-left: 1rem;
+    flex-shrink: 0;
+  }
 }

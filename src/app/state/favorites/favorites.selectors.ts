@@ -1,11 +1,16 @@
-import * as fromReducer from './favorites.reducers';
-import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {BeerFavoritesState} from './favorites.reducers';
+import {createSelector} from '@ngrx/store';
 import {selectFavorites} from "../app.state";
 
-//export const beerFeatureSelector = createFeatureSelector<fromReducer.BeerFavoritesState>(fromReducer.beerFavoritesFeatureKey);
-export const favoritesSelector = createSelector(
+export const favoritesBeersSelector = createSelector(
   selectFavorites,
   (state: BeerFavoritesState) => state?.beers
 );
+
+export const showRemoveAllAlert = createSelector(
+  selectFavorites,
+  (state: BeerFavoritesState) => state?.showAlertDialogAgain
+)
+
+
 

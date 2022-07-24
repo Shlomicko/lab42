@@ -12,6 +12,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {QueryBoxModule} from "../../UI/query-box/query-box.module";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         QueryBoxModule,
         MatPaginatorModule,
         MatProgressSpinnerModule,
+        MatFormFieldModule,
     ]
 })
 export class GalleryModule { }

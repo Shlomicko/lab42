@@ -13,5 +13,9 @@
   <button class="form__submit-button"
           (click)="submitQuery()"
           mat-raised-button color="accent"
-          [disabled]="queryControl.invalid">Beer me!</button>
+          [disabled]="queryControl.invalid">Beer me!
+  </button>
+  <div class="form__ng-content">
+    <ng-content></ng-content>
+  </div>
 </div>

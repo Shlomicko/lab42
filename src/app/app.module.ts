@@ -11,7 +11,8 @@ import {HttpClientModule} from '@angular/common/http';
 import * as fromFavoritesBeers from './state/favorites/favorites.reducers';
 import {FavoritesEffects} from './state/favorites/favorites.effects';
 import {MoreBeerInfoDialogComponent} from "./UI/beer-info-dialog/more-beer-info-dialog.component";
-import { RemoveFavoriteAlertComponent } from './UI/remove-favorite-alert/remove-favorite-alert.component';
+import { AlertDialogComponent } from './UI/remove-favorite-alert/alert-dialog.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { RemoveFavoriteAlertComponent } from './UI/remove-favorite-alert/remove-
     StoreModule.forRoot({favorites: fromFavoritesBeers.reducer}),
     EffectsModule.forRoot([FavoritesEffects]),
     NavBarModule,
+    MatSnackBarModule,
     MoreBeerInfoDialogComponent,
-    RemoveFavoriteAlertComponent,
+    AlertDialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

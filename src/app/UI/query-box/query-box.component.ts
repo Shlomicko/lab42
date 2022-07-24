@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Output} from '@angular/core';
+import {FormControl} from "@angular/forms";
+import {noneEmptyStringValidator} from "../../core/validators";
 
 @Component({
   selector: 'app-query-box',
@@ -14,7 +15,7 @@ export class QueryBoxComponent {
   protected queryControl: FormControl<string> = new FormControl<string>('',
     {
       nonNullable: true,
-      validators: Validators.required
+      validators: noneEmptyStringValidator()
     });
 
   @HostListener("keydown.enter")

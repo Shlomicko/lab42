@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {getFavoritesFromLocalStorage, updateFavoritesFromLocalStorage} from "./state/favorites/favorites.actions";
+import {getFavoritesFromLocalStorage} from "./state/favorites/favorites.actions";
 import {AppState} from "./state/app.state";
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.store.dispatch(getFavoritesFromLocalStorage())
+    this.store.dispatch(getFavoritesFromLocalStorage());
   }
 
 }

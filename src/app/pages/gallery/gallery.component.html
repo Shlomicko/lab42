@@ -2,26 +2,35 @@
   <app-query-box
     [class.disabled]="beersLoading$ | async"
     (onSubmitQuery)="onFoodPairingQuery($event)"
-  ></app-query-box>
-  <div class="beers">
-    <app-beer-card class="beers__card"
-                   *ngFor="let beer of beers;trackBy: trackBeersFn"
-                   [beerInfo]="beer"
-    >
-      <img src="{{beer.image_url}}" alt="{{beer.name}}">
-      <
-      <button class="action-button"
-              mat-button
-              (click)="toggleFavorite(beer)"
-              [color]="beer.isFavorite?'accent':'primary'">
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button class="action-button"
-              (click)="onMoreDetails(beer)"
-              mat-button
-              color="primary">MORE
-      </button>
-    </app-beer-card>
+  >
+    <mat-label *ngIf="beers.length > 0">Showing results for: <b>{{foodPairingString}}</b></mat-label>
+  </app-query-box>
+
+  <div *ngIf="beers.length === 0" class="no-beer-for-you">
+    <img src="assets/no_beer_for_you.png">
+  </div>
+  <div class="beers-container">
+    <div class="beers">
+      <app-beer-card class="beers__card"
+                     *ngFor="let beer of beers;trackBy: trackBeersFn"
+                     [beerInfo]="beer"
+      >
+        <img src="{{beer.image_url}}" alt="{{beer.name}}">
+        <div class="action-buttons">
+          <button
+            mat-button
+            (click)="toggleFavorite(beer)"
+            [color]="beer.isFavorite?'accent':'primary'">
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <button
+            (click)="onMoreDetails(beer)"
+            mat-button
+            color="primary">MORE
+          </button>
+        </div>
+      </app-beer-card>
+    </div>
     <mat-paginator
       #paginator
       class="beers__paginator mat-elevation-z4"
