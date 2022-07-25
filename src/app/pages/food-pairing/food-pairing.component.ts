@@ -10,16 +10,16 @@ import {AppState} from '../../state/app.state';
 import {trackBeers} from '../../core/helpers';
 import {MessageBoxService} from '../../core/services/message-box.service';
 import {MoreBeerInfoDialogComponent} from '../../UI/beer-info-dialog/more-beer-info-dialog.component';
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatPaginator} from "@angular/material/paginator";
 
 
 @Component({
-  selector: 'app-gallery',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss'],
+  selector: 'app-food-pairing',
+  templateUrl: './food-pairing.component.html',
+  styleUrls: ['./food-pairing.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleryComponent{
+export class FoodPairingComponent {
 
   protected foodPairingString: string = '';
 
@@ -45,7 +45,7 @@ export class GalleryComponent{
     })
   );
 
-  protected trackBeersFn = trackBeers;
+  protected trackBeersFn: (index: number, beer: Beer) => number = trackBeers;
 
   constructor(private store: Store<AppState>, private dialogService: MessageBoxService) {
   }
@@ -62,12 +62,12 @@ export class GalleryComponent{
     this.dialogService.open(MoreBeerInfoDialogComponent, beer);
   }
 
-  protected onPageChange(event: PageEvent): void {
-    this.fetchBeers(++event.pageIndex);
+  protected onPageChange(page: number): void {
+    this.fetchBeers(++page);
   }
 
   private fetchBeers(page: number = 1): void {
-    this.store.dispatch(BeerActions.fetchBeersData({food: this.foodPairingString, page, perPage: this.perPage}));
+    this.store.dispatch(BeerActions.fetchFoodPairingData({food: this.foodPairingString, page, perPage: this.perPage}));
   }
 
   protected onFoodPairingQuery(query: string): void {

@@ -1,0 +1,13 @@
+<ng-container *ngIf="beers$ | async as beers">
+  <div class="beers">
+    <app-beers-view
+      [beers]="beers"
+      [beersPerPage]="perPage"
+      (onToggleFavorite)="toggleFavorite($event)"
+      (onMoreDetails)="onMoreDetails($event)"
+      (onPageChange)="onPageChange($event)"
+    >
+    </app-beers-view>
+    <mat-spinner class="beers__spinner" *ngIf="beersLoading$ | async"></mat-spinner>
+  </div>
+</ng-container>

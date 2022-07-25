@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../state/app.state';
-import {Observable, takeUntil, tap} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AlertDialogCloseData, AlertDialogConfig, Beer} from '../../core/models';
 import {favoritesBeersSelector, showRemoveAllAlert} from '../../state/favorites/favorites.selectors';
 import {trackBeers} from '../../core/helpers';
@@ -20,10 +20,10 @@ import {MoreBeerInfoDialogComponent} from "../../UI/beer-info-dialog/more-beer-i
 export class FavoritesComponent {
 
   protected beers$: Observable<Beer[]> = this.store.select(favoritesBeersSelector);
-  private showAlertDialog$ = this.store.select(showRemoveAllAlert).pipe(
-    tap((data) => console.log(data)),
-    )
+
+  private showAlertDialog$ = this.store.select(showRemoveAllAlert)
     .subscribe((show: boolean | undefined) => this.showRemoveAllAlert = !!show);
+
   private showRemoveAllAlert: boolean = true;
   protected trackBeersFn = trackBeers;
 

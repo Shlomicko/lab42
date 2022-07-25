@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {GalleryComponent} from "./gallery.component";
+import {FoodPairingComponent} from "./food-pairing.component";
 
 
 const routes: Routes = [
   {
     path: '',
-    component: GalleryComponent
+    component: FoodPairingComponent
   },
 ]
 
@@ -17,4 +17,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class GalleryRoutingModule { }
+export class FoodPairingRoutingModule { }

@@ -5,8 +5,15 @@
   >
     <mat-label *ngIf="beers.length > 0">Showing results for: <b>{{foodPairingString}}</b></mat-label>
   </app-query-box>
-
-  <div *ngIf="beers.length === 0" class="no-beer-for-you">
+  <app-beers-view
+    [beers]="beers"
+    [beersPerPage]="perPage"
+    (onToggleFavorite)="toggleFavorite($event)"
+    (onMoreDetails)="onMoreDetails($event)"
+    (onPageChange)="onPageChange($event)"
+  >
+  </app-beers-view>
+  <!--<div *ngIf="beers.length === 0" class="no-beer-for-you">
     <img src="assets/no_beer_for_you.png">
   </div>
   <div class="beers-container">
@@ -39,6 +46,6 @@
       [pageSize]="perPage"
       aria-label="Select page">
     </mat-paginator>
-  </div>
+  </div>-->
   <mat-spinner class="spinner" *ngIf="beersLoading$ | async"></mat-spinner>
 </ng-container>

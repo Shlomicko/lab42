@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {GalleryComponent} from './gallery.component';
-import {GalleryRoutingModule} from "./gallery-routing.module";
+import {FoodPairingComponent} from './food-pairing.component';
+import {FoodPairingRoutingModule} from "./food-pairing-routing.module";
 import {BeerCardModule} from "../../UI/beer-card/beer-card.module";
 import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
@@ -13,15 +13,16 @@ import {QueryBoxModule} from "../../UI/query-box/query-box.module";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {BeersViewModule} from "../../UI/beers-view/beers-view.module";
 
 
 @NgModule({
   declarations: [
-    GalleryComponent
+    FoodPairingComponent
   ],
     imports: [
         CommonModule,
-        GalleryRoutingModule,
+        FoodPairingRoutingModule,
         BeerCardModule,
         StoreModule.forFeature(fromBeers.beerFeatureKey, fromBeers.reducer),
         EffectsModule.forFeature([BeerEffects]),
@@ -31,6 +32,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
         MatPaginatorModule,
         MatProgressSpinnerModule,
         MatFormFieldModule,
+        BeersViewModule,
     ]
 })
-export class GalleryModule { }
+export class FoodPairingModule { }

@@ -3,8 +3,12 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'gallery',
-    loadChildren: () => import('./pages/gallery/gallery.module').then(m => m.GalleryModule)
+    path: 'beer-selection',
+    loadChildren: () => import('./pages/beers-selection/beers-selection.module').then(m => m.BeersSelectionModule)
+  },
+  {
+    path: 'food-pairing',
+    loadChildren: () => import('./pages/food-pairing/food-pairing.module').then(m => m.FoodPairingModule)
   },
   {
     path: 'favorites',
@@ -12,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'gallery',
+    redirectTo: 'beer-selection',
     pathMatch: 'full'
   }
 ];
