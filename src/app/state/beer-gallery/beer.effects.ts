@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
-import {Actions, createEffect, Effect, ofType} from "@ngrx/effects";
+import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {BeerApiService} from "../../core/services/beer-api.service";
 import * as BeerActions from './beer.actions';
-import {catchError, EMPTY, map, Observable, of, switchMap} from "rxjs";
+import {catchError, map, Observable, of, switchMap} from "rxjs";
 import {Beer} from "../../core/models";
 import {FetchBeersError} from "../../core/consts";
 import {MatSnackBar} from "@angular/material/snack-bar";

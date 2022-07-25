@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {LocalStorageService} from "../../core/services/local-storage.service";
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {LocalStorageService} from '../../core/services/local-storage.service';
 import * as FavoritesActions from './favorites.actions'
-import {exhaustMap, map, of, switchMap, withLatestFrom} from "rxjs";
-import {Beer} from "../../core/models";
-import {Store} from "@ngrx/store";
-import {favoritesBeersSelector} from "./favorites.selectors";
-import {AppState} from "../app.state";
+import {map, of, switchMap, withLatestFrom} from 'rxjs';
+import {Beer} from '../../core/models';
+import {Store} from '@ngrx/store';
+import {favoritesBeersSelector} from './favorites.selectors';
+import {AppState} from '../app.state';
 
 @Injectable()
 export class FavoritesEffects {

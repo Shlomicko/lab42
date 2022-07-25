@@ -2,8 +2,6 @@ import {Beer} from '../../core/models';
 import {createReducer, on} from '@ngrx/store';
 import * as Actions from './favorites.actions';
 
-// export const beerFavoritesFeatureKey = 'favorites';
-
 export interface BeerFavoritesState {
   beers: Beer[];
   loading: boolean,

@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component} from '@angular/core';
 import {BeersStateService} from "../../core/services/beers-state.service";
 import {Beer} from "../../core/models";
 import {Observable} from "rxjs";

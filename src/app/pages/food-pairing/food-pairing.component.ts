@@ -6,7 +6,7 @@ import {MessageBoxService} from '../../core/services/message-box.service';
 import {MoreBeerInfoDialogComponent} from '../../UI/beer-info-dialog/more-beer-info-dialog.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {BeersStateService} from '../../core/services/beers-state.service';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
