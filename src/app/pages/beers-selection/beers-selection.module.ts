@@ -8,20 +8,22 @@ import {EffectsModule} from "@ngrx/effects";
 import {BeerEffects} from "../../state/beer-gallery/beer.effects";
 import {BeersSelectionRoutingModule} from "./beers-selection-routing.module";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
   declarations: [
     BeersSelectionComponent
   ],
-  imports: [
-    CommonModule,
-    BeersViewModule,
-    StoreModule.forFeature(fromBeers.beerFeatureKey, fromBeers.reducer),
-    EffectsModule.forFeature([BeerEffects]),
-    BeersSelectionRoutingModule,
-    MatProgressSpinnerModule
-  ],
+    imports: [
+        CommonModule,
+        BeersViewModule,
+        StoreModule.forFeature(fromBeers.beerFeatureKey, fromBeers.reducer),
+        EffectsModule.forFeature([BeerEffects]),
+        BeersSelectionRoutingModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule
+    ],
 })
 export class BeersSelectionModule {
 }

@@ -1,6 +1,14 @@
 .beers {
   padding-top: 2rem;
 
+  &__paginator {
+    margin: auto;
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   &__spinner {
     position: absolute;
     left: 50%;

@@ -4,6 +4,7 @@ import {Beer} from "../../core/models";
 import {Observable} from "rxjs";
 import {MessageBoxService} from "../../core/services/message-box.service";
 import {MoreBeerInfoDialogComponent} from "../../UI/beer-info-dialog/more-beer-info-dialog.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-beers-selection',
@@ -32,7 +33,7 @@ export class BeersSelectionComponent implements OnInit {
     this.dialogService.open(MoreBeerInfoDialogComponent, beer);
   }
 
-  protected onPageChange(page: number): void {
-    this.beersState.fetchAll(++page, this.perPage);
+  protected onPageChange(event: PageEvent): void {
+    this.beersState.fetchAll(++event.pageIndex, this.perPage);
   }
 }

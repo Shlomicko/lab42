@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../state/app.state';
 import {Observable} from 'rxjs';
@@ -9,6 +9,7 @@ import * as FavoritesActions from "../../state/favorites/favorites.actions";
 import {AlertDialogComponent} from "../../UI/remove-favorite-alert/alert-dialog.component";
 import {MessageBoxService} from "../../core/services/message-box.service";
 import {MoreBeerInfoDialogComponent} from "../../UI/beer-info-dialog/more-beer-info-dialog.component";
+import {BeersStateService} from "../../core/services/beers-state.service";
 
 
 @Component({
@@ -17,21 +18,25 @@ import {MoreBeerInfoDialogComponent} from "../../UI/beer-info-dialog/more-beer-i
   styleUrls: ['./favorites.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FavoritesComponent {
+export class FavoritesComponent implements OnInit {
 
-  protected beers$: Observable<Beer[]> = this.store.select(favoritesBeersSelector);
-
-  private showAlertDialog$ = this.store.select(showRemoveAllAlert)
-    .subscribe((show: boolean | undefined) => this.showRemoveAllAlert = !!show);
-
+  protected beers$: Observable<Beer[]> = this.beersState.favoriteBeers$;
   private showRemoveAllAlert: boolean = true;
   protected trackBeersFn = trackBeers;
 
-  constructor(private store: Store<AppState>, private dialogService: MessageBoxService) {
+  constructor(private store: Store<AppState>,
+              private beersState: BeersStateService,
+              private dialogService: MessageBoxService) {
+  }
+
+  ngOnInit(): void {
+    this.store.select(showRemoveAllAlert)
+      .subscribe((show: boolean | undefined) => this.showRemoveAllAlert = !!show);
+    this.beersState.fetchFavorites();
   }
 
   protected removeFromFavorites(beer: Beer): void {
-    if(!this.showRemoveAllAlert){
+    if (!this.showRemoveAllAlert) {
       this.dispatchToggleFavorites(beer);
       return;
     }

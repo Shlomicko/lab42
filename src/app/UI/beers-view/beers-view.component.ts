@@ -15,7 +15,7 @@ export class BeersViewComponent {
   @Input() beersPerPage: number = 6;
   @Output() onToggleFavorite: EventEmitter<Beer> = new EventEmitter<Beer>();
   @Output() onMoreDetails: EventEmitter<Beer> = new EventEmitter<Beer>();
-  @Output() onPageChange: EventEmitter<number> = new EventEmitter<number>()
+  @Output() onPageChange: EventEmitter<number> = new EventEmitter<number>();
 
   protected trackBeersFn: (index: number, beer: Beer) => number = trackBeers;
 

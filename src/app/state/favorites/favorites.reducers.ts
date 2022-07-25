@@ -25,7 +25,9 @@ export const reducer = createReducer(
   })),
   on(Actions.updateFavoritesFromLocalStorage, (state: BeerFavoritesState, {beers}) => ({
     ...state,
-    beers,
+    beers: beers.map<Beer>((beer) => {
+      return {...beer, isFavorite: true}
+    }),
     loading: false
   })),
   on(Actions.initFavoriteBeers, (state: BeerFavoritesState) => ({

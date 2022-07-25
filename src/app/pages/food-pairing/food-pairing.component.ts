@@ -1,16 +1,11 @@
 import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {combineLatest, map, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Beer} from '../../core/models';
-import {selectBeers, selectLoadingBeers} from '../../state/beer-gallery/beer.selectors';
-import * as BeerActions from '../../state/beer-gallery/beer.actions';
-import * as FavoritesActions from '../../state/favorites/favorites.actions';
-import {favoritesBeersSelector} from '../../state/favorites/favorites.selectors';
-import {AppState} from '../../state/app.state';
 import {trackBeers} from '../../core/helpers';
 import {MessageBoxService} from '../../core/services/message-box.service';
 import {MoreBeerInfoDialogComponent} from '../../UI/beer-info-dialog/more-beer-info-dialog.component';
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {BeersStateService} from '../../core/services/beers-state.service';
 
 
 @Component({
@@ -24,50 +19,35 @@ export class FoodPairingComponent {
   protected foodPairingString: string = '';
 
   protected readonly perPage: number = 8;
-  private availableBeers$: Observable<Beer[]> = this.store.select(selectBeers);
-  private favoriteBeers$: Observable<Beer[]> = this.store.select(favoritesBeersSelector);
-  protected beersLoading$: Observable<boolean> = this.store.select(selectLoadingBeers);
+  protected beersLoading$: Observable<boolean> = this.beersState.beersLoading$
 
   @ViewChild('paginator', {static: false}) paginator!: MatPaginator
 
-  protected beers$: Observable<Beer[]> = combineLatest([
-    this.availableBeers$,
-    this.favoriteBeers$,
-  ]).pipe(
-    map(([beers, favBeers]) => {
-      if(!this.foodPairingString){
-        return [];
-      }
-      return beers.map(beer => ({
-        ...beer,
-        isFavorite: !!favBeers.find((favBeer) => beer.id === favBeer.id)
-      }))
-    })
-  );
+  protected beers$: Observable<Beer[]> = this.beersState.foodAndBeers$;
 
   protected trackBeersFn: (index: number, beer: Beer) => number = trackBeers;
 
-  constructor(private store: Store<AppState>, private dialogService: MessageBoxService) {
+  constructor(private beersState: BeersStateService,
+              private dialogService: MessageBoxService) {
   }
 
   ngOnInit(): void {
-    //this.fetchBeers();
   }
 
   protected toggleFavorite(beer: Beer): void {
-    this.store.dispatch(FavoritesActions.toggleFavorite({beer}));
+    this.beersState.toggleFavorites(beer);
   }
 
   protected onMoreDetails(beer: Beer): void {
     this.dialogService.open(MoreBeerInfoDialogComponent, beer);
   }
 
-  protected onPageChange(page: number): void {
-    this.fetchBeers(++page);
+  protected onPageChange(event: PageEvent): void {
+    this.fetchBeers(++event.pageIndex);
   }
 
   private fetchBeers(page: number = 1): void {
-    this.store.dispatch(BeerActions.fetchFoodPairingData({food: this.foodPairingString, page, perPage: this.perPage}));
+    this.beersState.fetchByFoodPairing(this.foodPairingString, page, this.perPage);
   }
 
   protected onFoodPairingQuery(query: string): void {

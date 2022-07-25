@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {map, tap, Observable, Subject, withLatestFrom, combineLatest} from 'rxjs';
+import {combineLatest, map, Observable} from 'rxjs';
 import {Beer} from '../models';
 import {Store} from '@ngrx/store';
-import {selectBeers, selectLoadingBeers} from '../../state/beer-gallery/beer.selectors';
+import {selectBeers, selectLoadingBeers, selectPairedBeers} from '../../state/beer-gallery/beer.selectors';
 import {favoritesBeersSelector} from '../../state/favorites/favorites.selectors';
 import {AppState} from '../../state/app.state';
 import * as BeerActions from '../../state/beer-gallery/beer.actions';
@@ -14,30 +14,34 @@ import * as FavoritesActions from "../../state/favorites/favorites.actions";
 export class BeersStateService {
 
   private availableBeers$: Observable<Beer[]> = this.store.select(selectBeers);
-  private favoriteBeers$: Observable<Beer[]> = this.store.select(favoritesBeersSelector);
+  private pairedBeers$: Observable<Beer[]> = this.store.select(selectPairedBeers);
+  private favorites$: Observable<Beer[]> = this.store.select(favoritesBeersSelector);
   public readonly beersLoading$: Observable<boolean> = this.store.select(selectLoadingBeers);
   public readonly beers$: Observable<Beer[]> = combineLatest([
     this.availableBeers$,
-    this.favoriteBeers$,
+    this.favorites$,
   ]).pipe(
-    map(([beers, favBeers]) => {
-      return beers.map(beer => ({
-        ...beer,
-        isFavorite: !!favBeers.find((favBeer) => beer.id === favBeer.id)
-      }))
-    })
+    map(([beers, favBeers]) => this.createBeersListWithFavoriteProperty(beers, favBeers))
   );
 
-  constructor(private store: Store<AppState>) {
+  public readonly foodAndBeers$: Observable<Beer[]> = combineLatest([
+    this.pairedBeers$,
+    this.favorites$,
+  ]).pipe(
+    map(([beers, favBeers]) => this.createBeersListWithFavoriteProperty(beers, favBeers))
+  );
 
+  public readonly favoriteBeers$: Observable<Beer[]> = this.favorites$;
+
+  constructor(private store: Store<AppState>) {
   }
 
   public fetchAll(page: number = 1, perPage: number = 8): void {
     this.store.dispatch(BeerActions.fetchBeersData({page, perPage}));
   }
 
-  public fetchFavorites(beer: Beer): void {
-
+  public fetchFavorites(): void {
+    this.store.dispatch(FavoritesActions.getFavoritesFromLocalStorage());
   }
 
   public fetchByFoodPairing(food: string, page: number = 1, perPage: number = 8): void {
@@ -48,4 +52,10 @@ export class BeersStateService {
     this.store.dispatch(FavoritesActions.toggleFavorite({beer}));
   }
 
+  private createBeersListWithFavoriteProperty(beers: Beer[], favBeers: Beer[]): Beer[] {
+    return beers.map<Beer>(beer => ({
+      ...beer,
+      isFavorite: !!favBeers.find((favBeer) => beer.id === favBeer.id)
+    }))
+  }
 }

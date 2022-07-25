@@ -10,6 +10,12 @@ export const selectBeers = createSelector(
     return state?.beers
   }
 );
+export const selectPairedBeers = createSelector(
+  beerFeatureSelector,
+  (state: BeerState) => {
+    return state?.foodPairedBeers
+  }
+);
 
 export const selectLoadingBeers = createSelector(
   beerFeatureSelector,

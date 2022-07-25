@@ -5,9 +5,16 @@
       [beersPerPage]="perPage"
       (onToggleFavorite)="toggleFavorite($event)"
       (onMoreDetails)="onMoreDetails($event)"
-      (onPageChange)="onPageChange($event)"
     >
     </app-beers-view>
+    <mat-paginator
+      #paginator
+      class="beers__paginator mat-elevation-z4"
+      (page)="onPageChange($event)"
+      [length]="100"
+      [pageSize]="perPage"
+      aria-label="Select page">
+    </mat-paginator>
     <mat-spinner class="beers__spinner" *ngIf="beersLoading$ | async"></mat-spinner>
   </div>
 </ng-container>

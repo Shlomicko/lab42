@@ -20,19 +20,16 @@ import {BeersViewModule} from "../../UI/beers-view/beers-view.module";
   declarations: [
     FoodPairingComponent
   ],
-    imports: [
-        CommonModule,
-        FoodPairingRoutingModule,
-        BeerCardModule,
-        StoreModule.forFeature(fromBeers.beerFeatureKey, fromBeers.reducer),
-        EffectsModule.forFeature([BeerEffects]),
-        MatButtonModule,
-        MatIconModule,
-        QueryBoxModule,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        MatFormFieldModule,
-        BeersViewModule,
-    ]
+  imports: [
+    CommonModule,
+    FoodPairingRoutingModule,
+    StoreModule.forFeature(fromBeers.beerFeatureKey, fromBeers.reducer),
+    EffectsModule.forFeature([BeerEffects]),
+    QueryBoxModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    BeersViewModule,
+    MatFormFieldModule,
+  ]
 })
 export class FoodPairingModule { }

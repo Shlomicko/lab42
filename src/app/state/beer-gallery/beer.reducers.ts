@@ -26,7 +26,7 @@ export const reducer = createReducer(
   on(Actions.fetchFoodPairingDataSuccess, (state:BeerState, {beers}) => ({
     ...state,
     loading: false,
-    beers
+    foodPairedBeers: beers
   })),
   on(Actions.fetchFoodPairingDataFailure, (state:BeerState) => ({
     ...state,
