@@ -1,0 +1,15 @@
+<h1 class="main-title">Ooops!! how did you got here??</h1>
+<ng-container *ngIf="beer$ | async as beer">
+  <div class="random-beer">
+    <span class="random-beer__suggestion">While you're here may we interest you in this spacial beer?</span>
+    <app-beer-card
+      class="random-beer__card"
+      [beerInfo]="beer"
+    >
+      <img class="random-beer__img"
+           src="{{beer.image_url}}" alt="Image Of {{beer.name}}">
+    </app-beer-card>
+    <button class="random-beer__button" mat-flat-button color="primary" [routerLink]="['/beer-selection']">Check our selection</button>
+  </div>
+</ng-container>
+

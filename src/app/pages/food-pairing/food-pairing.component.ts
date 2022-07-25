@@ -1,11 +1,12 @@
-import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
-import {Observable} from 'rxjs';
+import {ChangeDetectionStrategy, Component, OnDestroy, ViewChild} from '@angular/core';
+import {Observable, Subject, takeUntil} from 'rxjs';
 import {Beer} from '../../core/models';
 import {trackBeers} from '../../core/helpers';
 import {MessageBoxService} from '../../core/services/message-box.service';
 import {MoreBeerInfoDialogComponent} from '../../UI/beer-info-dialog/more-beer-info-dialog.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {BeersStateService} from '../../core/services/beers-state.service';
+import {ActivatedRoute, Params} from "@angular/router";
 
 
 @Component({
@@ -14,7 +15,7 @@ import {BeersStateService} from '../../core/services/beers-state.service';
   styleUrls: ['./food-pairing.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FoodPairingComponent {
+export class FoodPairingComponent implements OnDestroy{
 
   protected foodPairingString: string = '';
 
@@ -26,12 +27,23 @@ export class FoodPairingComponent {
   protected beers$: Observable<Beer[]> = this.beersState.foodAndBeers$;
 
   protected trackBeersFn: (index: number, beer: Beer) => number = trackBeers;
+  private unSubscriber$: Subject<void> = new Subject<void>();
 
   constructor(private beersState: BeersStateService,
+              private activatedRoute: ActivatedRoute,
               private dialogService: MessageBoxService) {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.pipe(
+      takeUntil(this.unSubscriber$)
+    ).subscribe(
+      ({food}) => {
+        this.foodPairingString = food;
+        this.beersState.fetchByFoodPairing(food);
+        console.log('FoodPairingComponent', food);
+      }
+    )
   }
 
   protected toggleFavorite(beer: Beer): void {
@@ -54,5 +66,10 @@ export class FoodPairingComponent {
     this.foodPairingString = query;
     this.paginator?.firstPage();
     this.fetchBeers();
+  }
+
+  ngOnDestroy(): void {
+    this.unSubscriber$.next()
+    this.unSubscriber$.complete();
   }
 }

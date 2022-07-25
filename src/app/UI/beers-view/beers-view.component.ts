@@ -30,4 +30,8 @@ export class BeersViewComponent {
   protected pageChange(event: PageEvent): void {
     this.onPageChange.emit(event.pageIndex);
   }
+
+  protected brokenImageError(event: ErrorEvent): void {
+    (event.target as HTMLImageElement).src = 'assets/beer-bottle.svg';
+  }
 }

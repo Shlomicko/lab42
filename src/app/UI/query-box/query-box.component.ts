@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {noneEmptyStringValidator} from "../../core/validators";
 
@@ -11,6 +11,9 @@ import {noneEmptyStringValidator} from "../../core/validators";
 export class QueryBoxComponent {
 
   @Output() onSubmitQuery: EventEmitter<string> = new EventEmitter<string>();
+  @Input() set query(value: string){
+    this.queryControl.patchValue(value);
+  };
 
   protected queryControl: FormControl<string> = new FormControl<string>('',
     {

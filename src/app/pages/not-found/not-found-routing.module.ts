@@ -1,16 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {FoodPairingComponent} from "./food-pairing.component";
+import {NotFoundComponent} from "./not-found.component";
 
 
 const routes: Routes = [
   {
     path: '',
-    component: FoodPairingComponent
-  },
-  {
-    path: ':food',
-    component: FoodPairingComponent
+    component: NotFoundComponent
   },
 ]
 
@@ -21,5 +17,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class FoodPairingRoutingModule {
-}
+export class NotFoundRoutingModule { }

@@ -16,7 +16,7 @@ export class BeerEffects {
   public fetchFoodPairing$ = createEffect(() => this.actions$.pipe(
     ofType(BeerActions.fetchFoodPairingData),
     switchMap(({food, page, perPage}) => {
-      food = food.trim().replace(/\s\s+/g, '_');
+      food = food?.trim().replace(/\s\s+/g, '_');
       const observableOfBeers: Observable<Beer[]> = !!food ? this.beerService.fetchFoodPairing(food, page, perPage) : of([]);
       return observableOfBeers.pipe(
         map((beers: Beer[]) => BeerActions.fetchFoodPairingDataSuccess({beers})),
@@ -39,7 +39,7 @@ export class BeerEffects {
     ofType(BeerActions.fetchRandomBeerData),
     switchMap(() => {
       return this.beerService.fetchRandomBeer().pipe(
-        map((beer: Beer) => BeerActions.fetchRandomBeerSuccess({beer}))
+        map((beers: Beer[]) => BeerActions.fetchRandomBeerSuccess({beer: beers[0]}))
       )
     })
   ));

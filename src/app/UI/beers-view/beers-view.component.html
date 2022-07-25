@@ -7,7 +7,8 @@
                    *ngFor="let beer of beers;trackBy: trackBeersFn"
                    [beerInfo]="beer"
     >
-      <img src="{{beer.image_url}}" alt="{{beer.name}}">
+
+      <img src="{{beer.image_url}}" (error)="brokenImageError($event)" alt="{{beer.name}}">
       <div class="action-buttons">
         <button
           mat-button

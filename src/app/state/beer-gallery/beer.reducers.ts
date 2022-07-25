@@ -52,7 +52,7 @@ export const reducer = createReducer(
   on(Actions.fetchRandomBeerSuccess, (state:BeerState, {beer}) => ({
     ...state,
     loading: false,
-    beer
+    randomBeer: beer
   })),
   on(Actions.fetchFoodPairingDataFailure, (state:BeerState) => ({
     ...state,

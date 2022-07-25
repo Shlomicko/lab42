@@ -21,3 +21,8 @@ export const selectLoadingBeers = createSelector(
   beerFeatureSelector,
   (state: BeerState) => state?.loading
 );
+
+export const selectRandomBeer = createSelector(
+  beerFeatureSelector,
+  (state: BeerState) => state?.randomBeer
+);

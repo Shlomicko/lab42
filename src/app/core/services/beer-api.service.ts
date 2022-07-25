@@ -16,8 +16,8 @@ export class BeerApiService {
     return this.http.get<Beer[]>(`${environment.beersEndpoint}?page=${page}&per_page=${per_page}`);
   }
 
-  public fetchRandomBeer(): Observable<Beer> {
-    return this.http.get<Beer>(`${environment.beersEndpoint}/random`);
+  public fetchRandomBeer(): Observable<Beer[]> {
+    return this.http.get<Beer[]>(`${environment.beersEndpoint}/random`);
   }
 
   public fetchFoodPairing(food: string, page: number, per_page: number): Observable<Beer[]> {

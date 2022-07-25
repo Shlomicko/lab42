@@ -1,0 +1,40 @@
+:host {
+  display: grid;
+  place-content: center;
+  height: 100%;
+}
+
+.main-title {
+  margin: auto;
+  width: fit-content;
+}
+
+.random-beer {
+  margin: auto;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+
+  &__card {
+    height: 50%;
+  }
+
+  &__suggestion {
+    font-size: 2rem;
+    margin: 1rem auto;
+    width: fit-content;
+  }
+
+  &__img {
+    height: 50%;
+    width: 50%;
+    object-fit: contain;
+    object-position: top;
+    transform: rotate(-45deg) translateY(15rem) translateX(9rem);
+  }
+
+  &__button {
+    width: fit-content;
+    margin: 1rem auto;
+  }
+}
