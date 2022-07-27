@@ -25,18 +25,18 @@ export const getFavoritesFromLocalStorage = createAction(
 export const toggleFavorite = createAction(
   TOGGLE_FAVORITES,
   props<{ beer: Beer }>()
-)
+);
 
 export const removeAllFromFavorites = createAction(
   REMOVE_ALL_FAVORITES,
-)
+);
 
 export const setShowAlertAgain = createAction(
   SET_SHOW_REMOVE_FAVORITES_ALERT_DIALOG_AGAIN,
   props<{show: boolean}>()
-)
+);
 
 export const saveShowAlertAgain = createAction(
   SAVE_SHOW_REMOVE_FAVORITES_ALERT_DIALOG_AGAIN,
   props<{show: boolean}>()
-)
+);

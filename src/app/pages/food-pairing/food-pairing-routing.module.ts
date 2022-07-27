@@ -8,10 +8,6 @@ const routes: Routes = [
     path: '',
     component: FoodPairingComponent
   },
-  {
-    path: ':food',
-    component: FoodPairingComponent
-  },
 ]
 
 

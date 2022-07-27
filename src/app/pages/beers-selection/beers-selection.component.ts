@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {BeersStateService} from "../../core/services/beers-state.service";
-import {Beer} from "../../core/models";
-import {Observable} from "rxjs";
-import {MessageBoxService} from "../../core/services/message-box.service";
-import {MoreBeerInfoDialogComponent} from "../../UI/beer-info-dialog/more-beer-info-dialog.component";
-import {PageEvent} from "@angular/material/paginator";
+import {BeersStateService} from '../../core/services/beers-state.service';
+import {Beer, BeersData} from '../../core/models';
+import {Observable} from 'rxjs';
+import {MessageBoxService} from '../../core/services/message-box.service';
+import {MoreBeerInfoDialogComponent} from '../../UI/beer-info-dialog/more-beer-info-dialog.component';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-beers-selection',
@@ -15,14 +15,14 @@ import {PageEvent} from "@angular/material/paginator";
 export class BeersSelectionComponent implements OnInit {
 
   protected readonly perPage: number = 8;
-  protected beers$: Observable<Beer[]> = this.beersState.beers$;
+  protected beers$: Observable<BeersData> = this.beersState.beers$;
   protected beersLoading$: Observable<boolean> = this.beersState.beersLoading$;
 
   constructor(private beersState: BeersStateService, private dialogService: MessageBoxService) {
   }
 
   ngOnInit(): void {
-    this.beersState.fetchAll(1, this.perPage);
+    this.beersState.initFetchAllBeers();
   }
 
   protected toggleFavorite(beer: Beer): void {
@@ -34,6 +34,6 @@ export class BeersSelectionComponent implements OnInit {
   }
 
   protected onPageChange(event: PageEvent): void {
-    this.beersState.fetchAll(++event.pageIndex, this.perPage);
+    this.beersState.dispatchFetchAllBeers(++event.pageIndex, this.perPage);
   }
 }

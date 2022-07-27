@@ -12,7 +12,7 @@ export class BeerApiService {
   constructor(private http: HttpClient) {
   }
 
-  public fetchBeers(page: number, per_page: number): Observable<Beer[]> {
+  public fetchBeers(page: number | null, per_page: number): Observable<Beer[]> {
     return this.http.get<Beer[]>(`${environment.beersEndpoint}?page=${page}&per_page=${per_page}`);
   }
 

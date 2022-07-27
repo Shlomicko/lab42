@@ -1,13 +1,13 @@
-<ng-container *ngIf="beers$ | async as beers">
+<ng-container *ngIf="beers$ | async as beersData">
   <app-query-box
     [class.disabled]="beersLoading$ | async"
-    [query]="foodPairingString"
+    [query]="foodPairingString || beersData.term"
     (onSubmitQuery)="onFoodPairingQuery($event)"
   >
-    <mat-label *ngIf="beers.length > 0">Showing results for: <b>{{foodPairingString}}</b></mat-label>
+    <mat-label *ngIf="beersData.beers.length > 0">Showing results for: <b>{{foodPairingString}}</b></mat-label>
   </app-query-box>
   <app-beers-view
-    [beers]="beers"
+    [beers]="beersData.beers"
     [beersPerPage]="perPage"
     (onToggleFavorite)="toggleFavorite($event)"
     (onMoreDetails)="onMoreDetails($event)"
@@ -19,6 +19,7 @@
     (page)="onPageChange($event)"
     [length]="100"
     [pageSize]="perPage"
+    [pageIndex]="beersData.page - 1"
     aria-label="Select page">
   </mat-paginator>
   <mat-spinner class="spinner" *ngIf="beersLoading$ | async"></mat-spinner>

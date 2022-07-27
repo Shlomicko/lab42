@@ -70,3 +70,13 @@ export interface AlertDialogCloseData {
   value: boolean;
   dontShowAgain: boolean
 }
+
+export interface PairedBeerData extends BeersData {
+  term: string;
+}
+
+export interface BeersData {
+  beers: Beer[];
+  page: number;
+  perPage: number;
+}

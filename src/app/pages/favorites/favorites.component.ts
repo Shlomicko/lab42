@@ -3,13 +3,13 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../state/app.state';
 import {Observable} from 'rxjs';
 import {AlertDialogCloseData, AlertDialogConfig, Beer} from '../../core/models';
-import {favoritesBeersSelector, showRemoveAllAlert} from '../../state/favorites/favorites.selectors';
+import {showRemoveAllAlert} from '../../state/favorites/favorites.selectors';
 import {trackBeers} from '../../core/helpers';
-import * as FavoritesActions from "../../state/favorites/favorites.actions";
-import {AlertDialogComponent} from "../../UI/remove-favorite-alert/alert-dialog.component";
-import {MessageBoxService} from "../../core/services/message-box.service";
-import {MoreBeerInfoDialogComponent} from "../../UI/beer-info-dialog/more-beer-info-dialog.component";
-import {BeersStateService} from "../../core/services/beers-state.service";
+import * as FavoritesActions from '../../state/favorites/favorites.actions';
+import {AlertDialogComponent} from '../../UI/remove-favorite-alert/alert-dialog.component';
+import {MessageBoxService} from '../../core/services/message-box.service';
+import {MoreBeerInfoDialogComponent} from '../../UI/beer-info-dialog/more-beer-info-dialog.component';
+import {BeersStateService} from '../../core/services/beers-state.service';
 
 
 @Component({

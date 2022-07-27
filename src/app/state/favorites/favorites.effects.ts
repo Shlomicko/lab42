@@ -11,14 +11,15 @@ import {AppState} from '../app.state';
 @Injectable()
 export class FavoritesEffects {
 
-  constructor(private actions$: Actions, private favoritesLocalStorage: LocalStorageService, private store: Store<AppState>) {
+  constructor(private actions$: Actions,
+              private localStorageService: LocalStorageService,
+              private store: Store<AppState>) {
   }
 
   public getFavorites$ = createEffect(() => this.actions$.pipe(
     ofType(FavoritesActions.getFavoritesFromLocalStorage),
     switchMap(() => {
-      console.log('getFavorites$')
-      return this.favoritesLocalStorage.getFavorites().pipe(
+      return of(this.localStorageService.getFavorites()).pipe(
         map((beers: Beer[]) => FavoritesActions.updateFavoritesFromLocalStorage({beers}))
       )
     })
@@ -28,7 +29,7 @@ export class FavoritesEffects {
     ofType(FavoritesActions.toggleFavorite),
     withLatestFrom(this.store.select(favoritesBeersSelector)),
     switchMap(([, beers]) => {
-      return this.favoritesLocalStorage.saveFavorites(beers).pipe(
+      return of(this.localStorageService.saveFavorites(beers)).pipe(
         map((beersToSave: Beer[]) => FavoritesActions.updateFavoritesFromLocalStorage({beers: beersToSave}))
       )
     })
@@ -37,7 +38,7 @@ export class FavoritesEffects {
   public initFavoritesBeers$ = createEffect(() => this.actions$.pipe(
     ofType(FavoritesActions.initFavoriteBeers),
     switchMap(() => {
-      return this.favoritesLocalStorage.getFavorites().pipe(
+      return of(this.localStorageService.getFavorites()).pipe(
         map((beers: Beer[]) => FavoritesActions.updateFavoritesFromLocalStorage({beers}))
       )
     })
@@ -46,8 +47,8 @@ export class FavoritesEffects {
   public removeAllFromFavorites$ = createEffect(() => this.actions$.pipe(
     ofType(FavoritesActions.removeAllFromFavorites),
     switchMap(() => {
-      return this.favoritesLocalStorage.removeAll().pipe(
-        map((beers: Beer[]) => {
+      return of(this.localStorageService.removeAllFavorites()).pipe(
+        map(() => {
           return FavoritesActions.updateFavoritesFromLocalStorage({beers: []})
         })
       )

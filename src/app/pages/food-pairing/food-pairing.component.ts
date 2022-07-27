@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, ViewChild} from '@angular/core';
-import {Observable, Subject, takeUntil} from 'rxjs';
-import {Beer} from '../../core/models';
+import {Observable, Subject, takeWhile} from 'rxjs';
+import {Beer, PairedBeerData} from '../../core/models';
 import {trackBeers} from '../../core/helpers';
 import {MessageBoxService} from '../../core/services/message-box.service';
 import {MoreBeerInfoDialogComponent} from '../../UI/beer-info-dialog/more-beer-info-dialog.component';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {BeersStateService} from '../../core/services/beers-state.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./food-pairing.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FoodPairingComponent implements OnDestroy{
+export class FoodPairingComponent implements OnDestroy {
 
   protected foodPairingString: string = '';
 
@@ -24,7 +24,7 @@ export class FoodPairingComponent implements OnDestroy{
 
   @ViewChild('paginator', {static: false}) paginator!: MatPaginator
 
-  protected beers$: Observable<Beer[]> = this.beersState.foodAndBeers$;
+  protected beers$: Observable<PairedBeerData> = this.beersState.foodAndBeers$;
 
   protected trackBeersFn: (index: number, beer: Beer) => number = trackBeers;
   private unSubscriber$: Subject<void> = new Subject<void>();
@@ -34,16 +34,15 @@ export class FoodPairingComponent implements OnDestroy{
               private dialogService: MessageBoxService) {
   }
 
-  ngOnInit(): void {
-    this.activatedRoute.params.pipe(
-      takeUntil(this.unSubscriber$)
+  async ngOnInit(): Promise<void> {
+    this.beers$.pipe(
+      takeWhile(() => !this.foodPairingString)
     ).subscribe(
-      ({food}) => {
-        this.foodPairingString = food;
-        this.beersState.fetchByFoodPairing(food);
-        console.log('FoodPairingComponent', food);
+      (data: PairedBeerData) => {
+        this.foodPairingString = data.term;
       }
-    )
+    );
+    this.beersState.dispatchFetchByFoodPairing(this.foodPairingString);
   }
 
   protected toggleFavorite(beer: Beer): void {
@@ -59,7 +58,7 @@ export class FoodPairingComponent implements OnDestroy{
   }
 
   private fetchBeers(page: number = 1): void {
-    this.beersState.fetchByFoodPairing(this.foodPairingString, page, this.perPage);
+    this.beersState.dispatchFetchByFoodPairing(this.foodPairingString, page, this.perPage);
   }
 
   protected onFoodPairingQuery(query: string): void {

@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Beer} from '../../core/models';
+import {Beer, BeersData, PairedBeerData} from '../../core/models';
 
 const FETCH_BEERS_DATA = '[Beers] Fetch data';
 const FETCH_BEERS_DATA_SUCCESS = '[Beers] Fetch data success';
@@ -8,6 +8,10 @@ const FETCH_BEERS_DATA_FAILURE = '[Beers] Fetch data failure';
 const FETCH_FOOD_PARING_DATA = '[Beers] Fetch food pairing data';
 const FETCH_FOOD_PARING_DATA_SUCCESS = '[Beers] Fetch food pairing data success';
 const FETCH_FOOD_PARING_DATA_FAILURE = '[Beers] Fetch food pairing data failure';
+
+const FETCH_FOOD_PARING_FROM_STORAGE = '[Beers] Fetch food pairing from storage';
+const FETCH_FOOD_PARING_FROM_STORAGE_SUCCESS = '[Beers] Fetch food pairing from storage success';
+const FETCH_FOOD_PARING_FROM_STORAGE_FAILURE = '[Beers] Fetch food pairing from storage failure';
 
 const FETCH_RANDOM_BEER_DATA = '[Beers] Fetch random beer';
 const FETCH_RANDOM_BEER_DATA_SUCCESS = '[Beers] Fetch data success';
@@ -20,7 +24,7 @@ export const fetchFoodPairingData = createAction(
 
 export const fetchFoodPairingDataSuccess = createAction(
   FETCH_FOOD_PARING_DATA_SUCCESS,
-  props<{ beers: Beer[] }>()
+  props<PairedBeerData>()
 );
 
 export const fetchFoodPairingDataFailure = createAction(
@@ -35,7 +39,7 @@ export const fetchBeersData = createAction(
 
 export const fetchBeersDataSuccess = createAction(
   FETCH_BEERS_DATA_SUCCESS,
-  props<{ beers: Beer[] }>()
+  props<BeersData>()
 )
 export const fetchBeersDataFailure = createAction(
   FETCH_BEERS_DATA_FAILURE,
@@ -52,5 +56,20 @@ export const fetchRandomBeerSuccess = createAction(
 );
 export const fetchRandomBeerFailure = createAction(
   FETCH_RANDOM_BEES_DATA_FAILURE,
+);
+
+export const fetchFoodPairingFromStorage = createAction(
+  FETCH_FOOD_PARING_FROM_STORAGE,
+  props<PairedBeerData>()
+);
+
+export const fetchFoodPairingFromStorageSuccess = createAction(
+  FETCH_FOOD_PARING_FROM_STORAGE_SUCCESS,
+  props<PairedBeerData>()
+);
+
+export const fetchFoodPairingFromStorageFailure = createAction(
+  FETCH_FOOD_PARING_FROM_STORAGE_FAILURE,
+  props<{ message: string }>()
 );
 

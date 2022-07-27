@@ -1,7 +1,7 @@
-<ng-container *ngIf="beers$ | async as beers">
+<ng-container *ngIf="beers$ | async as beersData">
   <div class="beers">
     <app-beers-view
-      [beers]="beers"
+      [beers]="beersData.beers"
       [beersPerPage]="perPage"
       (onToggleFavorite)="toggleFavorite($event)"
       (onMoreDetails)="onMoreDetails($event)"
@@ -13,6 +13,7 @@
       (page)="onPageChange($event)"
       [length]="100"
       [pageSize]="perPage"
+      [pageIndex]="beersData.page - 1"
       aria-label="Select page">
     </mat-paginator>
     <mat-spinner class="beers__spinner" *ngIf="beersLoading$ | async"></mat-spinner>
